@@ -70,7 +70,11 @@
 					</excludes>
 				</configuration>
 			</plugin>
+
 		</plugins>
+		<finalName>
+			javaapp
+		</finalName>
 	</build>
 
 </project>
