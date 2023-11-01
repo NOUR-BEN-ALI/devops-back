@@ -48,7 +48,7 @@ public class Produit implements Serializable {
 	@JsonIgnore
 	private CategorieProduit categorieProduit;
 	
-// test
+
 
 	
 
