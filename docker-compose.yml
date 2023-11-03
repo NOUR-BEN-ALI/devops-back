@@ -12,8 +12,8 @@ services:
       - my-network
 
   spring-boot-app:
-    image: ikbel436/achat
-    container_name: docker-compose-spring-boot
+    image: malakbenmansour/devopsapp
+    container_name: spring-boot
     ports:
       - "8088:8089"
     depends_on:
@@ -25,8 +25,8 @@ services:
     networks:
       - my-network
   angular-app:
-    image: ikbel436/frontachat
-    container_name: docker-compose-angular-app
+    image: malak/achat_frontend
+    container_name: angular-app
     ports:
       - "4200:80"
     depends_on:
