@@ -27,7 +27,7 @@ services:
     networks:
       - my-network
   angular-app:
-    image: aziz/achat_frontend
+    image: azizbenzarti/achat_frontend
     container_name: angular-app
     ports:
       - "4200:80"
