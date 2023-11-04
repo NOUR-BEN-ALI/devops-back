@@ -1,5 +1,14 @@
+# Use an OpenJDK base image
 FROM openjdk:11-jre-slim
-#FROM openjdk:8
-EXPOSE 8080
-ADD target/javaapp.jar javaapp.jar
-ENTRYPOINT ["java","-jar","/javaapp.jar"]
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the JAR file from your project into the container
+COPY target/javaapp.jar /app/javaapp.jar
+
+# Expose the port your Spring Boot application runs on (change to the actual port)
+EXPOSE 8089
+
+# Define the command to run your Spring Boot application
+CMD ["java", "-jar", "javaapp.jar"]
