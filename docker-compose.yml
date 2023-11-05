@@ -22,6 +22,8 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:mysql://docker-compose-mysql-db:3306/achatdb?&createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
+    volumes:
+      - .m2:/var/lib/jenkins/.m2
     networks:
       - my-network
   angular-app:
