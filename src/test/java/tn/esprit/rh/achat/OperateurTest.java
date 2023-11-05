@@ -39,7 +39,7 @@ public class OperateurTest {
 
     Operateur operateur = new Operateur(1L,"malak","operateur1","arctic");
 
-    ArrayList<Operateur> listProduits = new ArrayList<Operateur>() {
+    ArrayList<Operateur> listOperateurs = new ArrayList<Operateur>() {
         {
             add(new Operateur(1L, "malak", "operateur1","arctic"));
             add(new Operateur(2L, "test", "operateur2","devops"));
@@ -51,7 +51,7 @@ public class OperateurTest {
     @Test
     @Order(1)
 
-    public void testRetrieveProduit() {
+    public void testRetrieveOperateur() {
         Mockito.when(operateurRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(operateur));
         Operateur operateur1 = operateurService.retrieveOperateur(6L);
         Assertions.assertNotNull(operateur1);
@@ -60,7 +60,7 @@ public class OperateurTest {
 
     @Test
     @Order(2)
-    public void testAddProduit() throws ParseException {
+    public void testAddOperateur() throws ParseException {
         Operateur opera= new Operateur(1L, "malak", "operateur1","arctic");
 
         Operateur saveopera = OperateurService.addOperateur(opera);
