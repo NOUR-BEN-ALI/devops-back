@@ -6,7 +6,7 @@ services:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
       - MYSQL_DATABASE=achatdb
   spring-app:
-    image: azizbenzarti/backend-app:latest
+    image: azizbenzarti/devopsapp:latest
     depends_on:
       - mysql
     environment:
