@@ -26,52 +26,56 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class OperateurTest {
     @Mock
-    SecteurActiviteRepository secteurActiviteRepository;
+    OperateurRepository secteurActiviteRepository;
     @InjectMocks
-    SecteurActiviteServiceImpl Secteur;
+    OperateurServiceImpl Secteur;
 
     @Test
-    public void testRetrieveAllSecteursByid() {
-        SecteurActivite secteur = new SecteurActivite();
-        secteur.setIdSecteurActivite(1L); // Specify the ID
-        secteur.setCodeSecteurActivite("aziiz");
-        secteur.setLibelleSecteurActivite("sec");
+    public void testRetrieveAllOperateurByid() {
+        Operateur operateur = new Operateur();
+        operateur.setIdOperateur(1L); // Specify the ID
+        operateur.setNom("malak");
+        operateur.setPrenom("benmansour");
+        operateur.setPassword("mdp");
+
 
 
         // Mock the repository's behavior to return the sample Stock when ID 1L is passed
-        when(secteurActiviteRepository.findById(1L)).thenReturn(Optional.of(secteur));
+        when(secteurActiviteRepository.findById(1L)).thenReturn(Optional.of(operateur));
 
         // Call the retrieveStock method
-        SecteurActivite sec1 = Secteur.retrieveSecteurActivite(1L);
+        Operateur sec1 = Secteur.retrieveOperateur(1L);
 
         // Assert that the retrieved stock is not null
         Assertions.assertNotNull(sec1);
 
         // Additional assertions if needed
-        assertEquals("aziiz", sec1.getCodeSecteurActivite());
-        assertEquals("sec", sec1.getLibelleSecteurActivite());
+        assertEquals("malak", sec1.getNom());
+        assertEquals("benmansour", sec1.getPrenom());
+        assertEquals("mdp", sec1.getPassword());
 
 
     }
 
     @Test
-    public void testAddSecteur() {
+    public void testAddOperateur() {
 
-        SecteurActivite sampleSecteur = new SecteurActivite();
-        sampleSecteur.setIdSecteurActivite(1L); // Specify the ID
-        sampleSecteur.setCodeSecteurActivite("secteur code");
-        sampleSecteur.setLibelleSecteurActivite("sec2");
-
+        Operateur sampleSecteur = new Operateur();
+        sampleSecteur.setIdOperateur(1L); // Specify the ID
+        sampleSecteur.setNom("nom");
+        sampleSecteur.setPrenom("prenom");
+        sampleSecteur.setPassword("password");
 
         when(secteurActiviteRepository.save(sampleSecteur)).thenReturn(sampleSecteur);
 
 
-        SecteurActivite savedSecteur = Secteur.addSecteurActivite(sampleSecteur);
+        Operateur savedSecteur = Secteur.addOperateur(sampleSecteur);
 
 
-        assertEquals(1L, savedSecteur.getIdSecteurActivite());
-        assertEquals("secteur code", savedSecteur.getCodeSecteurActivite());
-        assertEquals("sec2", savedSecteur.getLibelleSecteurActivite());
+        assertEquals(1L, savedSecteur.getIdOperateur());
+        assertEquals("nome", savedSecteur.getNom());
+        assertEquals("prenom", savedSecteur.getPrenom());
+        assertEquals("password", savedSecteur.getPassword());
 
 
 
@@ -105,30 +109,32 @@ public class OperateurTest {
     @Test
     public void testRetrieveAllSecteurs() {
 
-        SecteurActivite secteur1 = new SecteurActivite();
-        secteur1.setIdSecteurActivite(1L);
-        secteur1.setCodeSecteurActivite("sec1");
-        secteur1.setLibelleSecteurActivite("aziiz");
+        Operateur secteur1 = new Operateur();
+        secteur1.setIdOperateur(1L);
+        secteur1.setNom("opera");
+        secteur1.setPrenom("aziiz");
+        secteur1.setPassword("malak");
 
 
-        SecteurActivite secteur2 = new SecteurActivite();
-        secteur2.setIdSecteurActivite(2L);
-        secteur2.setCodeSecteurActivite("sec2");
-        secteur2.setLibelleSecteurActivite("benza");
+        Operateur secteur2 = new Operateur();
+        secteur2.setIdOperateur(2L);
+        secteur2.setNom("opera2");
+        secteur2.setPrenom("aziiz2");
+        secteur2.setPassword("malak2");
 
 
-        List<SecteurActivite> sampleSecteurList = Arrays.asList(secteur1, secteur2);
+        List<Operateur> sampleSecteurList = Arrays.asList(secteur1, secteur2);
 
 
         when(secteurActiviteRepository.findAll()).thenReturn(sampleSecteurList);
 
 
-        List<SecteurActivite> retrievedSecteurList = Secteur.retrieveAllSecteurActivite();
+        List<Operateur> retrievedSecteurList = Secteur.retrieveAllOperateurs();
 
 
         assertEquals(2, retrievedSecteurList.size());
-        assertEquals("sec1", retrievedSecteurList.get(0).getCodeSecteurActivite());
-        assertEquals("sec2", retrievedSecteurList.get(1).getCodeSecteurActivite());
+        assertEquals("opera", retrievedSecteurList.get(0).getNom());
+        assertEquals("opera2", retrievedSecteurList.get(1).getNom());
 
 
         verify(secteurActiviteRepository).findAll();
@@ -137,7 +143,7 @@ public class OperateurTest {
     @Test
     public void testDeleteOperateur() {
 
-        Secteur.deleteSecteurActivite(1L);
+        Secteur.deleteOperateur(1L);
 
 
         verify(secteurActiviteRepository).deleteById(1L);
