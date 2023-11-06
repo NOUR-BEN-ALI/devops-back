@@ -73,7 +73,7 @@ public class OperateurTest {
 
 
         assertEquals(1L, savedSecteur.getIdOperateur());
-        assertEquals("nome", savedSecteur.getNom());
+        assertEquals("nom", savedSecteur.getNom());
         assertEquals("prenom", savedSecteur.getPrenom());
         assertEquals("password", savedSecteur.getPassword());
 
