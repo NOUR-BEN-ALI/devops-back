@@ -5,8 +5,6 @@ services:
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
       - MYSQL_DATABASE=achatdb
-    networks:
-      - my-network
 
   spring-boot-app:
     image: azizbenzarti/devopsapp
@@ -15,13 +13,9 @@ services:
     depends_on:
       - mysql-db
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/achatdb?useUnicode=true&useJDBCCompliantTimezoneShift=true&createDatabaseIfNotExist=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/achatdb
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=
-    volumes:
-      - .m2:/var/lib/jenkins/.m2
-    networks:
-      - my-network
   angular-app:
     image: azizbenzarti/achat_frontend
     container_name: angular-app
