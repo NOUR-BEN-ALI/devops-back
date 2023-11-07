@@ -19,7 +19,7 @@
 		<java.version>1.8</java.version>
 			<sonar.projectKey>tn.esprit.rh:achat</sonar.projectKey>
 			<sonar.host.url>http://192.168.33.10:9000</sonar.host.url>
-			<sonar.login>squ_eb4687194e0f318784cc1f9b754e787f3a00d9b9</sonar.login>
+			<sonar.login>squ_80cf7746a80abad2febb4b92a5953b6417470447</sonar.login>
 	</properties>
 	<dependencies>
 		<dependency>
