@@ -29,6 +29,11 @@ services:
       MANAGEMENT_ENDPOINT_PROMETHEUS_ENABLED: 'true'
       MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED: 'true'
 
+  frontapp:
+    image: mayssaklay:front
+    ports:
+      - "80:80"
+
 
 
 
