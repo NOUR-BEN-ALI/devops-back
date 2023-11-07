@@ -20,7 +20,7 @@
 		<sonar.jacoco.reportPath>${project.basedir}/target/coverage-reports/jacoco-unit.exec</sonar.jacoco.reportPath>
 
 			<sonar.coverage.jacoco.xmlReportPaths>
-				${project.basedir}/target/jacoco-report/jacoco.xml
+				${project.basedir}/site/jacoco/jacoco.xml
 			</sonar.coverage.jacoco.xmlReportPaths>
 
 	</properties>
