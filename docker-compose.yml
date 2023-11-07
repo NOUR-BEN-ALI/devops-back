@@ -32,7 +32,7 @@ services:
   front:
     image: nourbenali/devops:front
     ports:
-      - "80:89"
+      - "80:80"
 
 
 volumes:
