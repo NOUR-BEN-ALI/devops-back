@@ -18,6 +18,11 @@
 		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
 		<java.version>1.8</java.version>
 		<sonar.jacoco.reportPath>${project.basedir}/target/coverage-reports/jacoco-unit.exec</sonar.jacoco.reportPath>
+
+			<sonar.coverage.jacoco.xmlReportPaths>
+				${project.basedir}/target/jacoco-report/jacoco.xml
+			</sonar.coverage.jacoco.xmlReportPaths>
+
 	</properties>
 	<dependencies>
 		<dependency>
