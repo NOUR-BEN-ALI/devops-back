@@ -1,6 +1,8 @@
 package tn.esprit.rh.achat.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -37,7 +39,7 @@ public class Fournisseur implements Serializable {
 	private CategorieFournisseur  categorieFournisseur;
 	@OneToMany(mappedBy="fournisseur")
 	@JsonIgnore
-	private Set<Facture> factures;
+	private List<Facture> factures =new ArrayList<>();
     @ManyToMany
     @JsonIgnore
     private Set<SecteurActivite> secteurActivites;

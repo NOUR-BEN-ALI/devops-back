@@ -12,10 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
@@ -27,13 +24,19 @@ public class Facture implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@NonNull
 	private Long idFacture;
+	@NonNull
 	private float montantRemise;
+	@NonNull
 	private float montantFacture;
+	@NonNull
 	@Temporal(TemporalType.DATE)
 	private Date dateCreationFacture;
+	@NonNull
 	@Temporal(TemporalType.DATE)
 	private Date dateDerniereModificationFacture;
+	@NonNull
 	private Boolean archivee;
 	@OneToMany(mappedBy = "facture")
 	private Set<DetailFacture> detailsFacture;
