@@ -13,20 +13,18 @@ services:
       - dockerAngularSpringDatabaseData:/var/lib/mysql
     networks:
       - back
-
   # Spring Boot Backend
   spring-backend:
-    image: moez063719/achat_backend:latest  
+    image: moez063719/achat_backend:latest
     ports:
       - "8089:8089"
     depends_on:
       - mysqldb
     networks:
       - back
-
   # Angular Frontend
   angular-frontend:
-    image: moez063719/achat_frontend:latest  
+    image: moez063719/achat_frontend:latest
     ports:
       - "8099:80"
     depends_on:
