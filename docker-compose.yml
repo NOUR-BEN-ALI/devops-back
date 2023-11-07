@@ -29,7 +29,10 @@ services:
       MANAGEMENT_ENDPOINT_PROMETHEUS_ENABLED: 'true'
       MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED: 'true'
 
-
+  front:
+    image: nourbenali/devops:front
+    ports:
+      - "80:80"
 
 
 volumes:
