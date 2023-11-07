@@ -30,7 +30,7 @@ services:
       MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED: 'true'
 
   frontapp:
-    image: mayssaklay:front
+    image: mayssaklay/repodevops:front
     ports:
       - "80:80"
 
