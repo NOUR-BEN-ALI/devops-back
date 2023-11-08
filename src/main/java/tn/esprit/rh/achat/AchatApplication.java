@@ -1,7 +1,6 @@
 package tn.esprit.rh.achat;
 
 import com.zaxxer.hikari.metrics.prometheus.PrometheusHistogramMetricsTrackerFactory;
-import org.aspectj.bridge.MessageUtil;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
