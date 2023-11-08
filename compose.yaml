@@ -18,6 +18,13 @@ services:
     image: moez063719/achat_backend:latest
     ports:
       - "8089:8089"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/achatdb?&createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      spring.jpa.hibernate.ddl-auto: update
+      spring.jpa.properties.hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
     depends_on:
       - mysqldb
     networks:
