@@ -1,0 +1,78 @@
+pipeline {
+    agent any 
+    stages {
+       /* stage("Checkout GIT") {
+            steps {
+                echo 'Pulling from GIT ..'
+                git branch : 'malak', 
+                url : 'https://github.com/NOUR-BEN-ALI/devops-back',
+                credentialsId: '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'
+        }
+        }*/
+
+        stage('Checkout') {
+            steps {
+                // Check out your source code from version control (e.g., Git).
+                checkout scm
+            }
+        }
+        stage("Build Livrable"){
+            steps {
+                sh 'mvn clean install'
+            }
+        }
+        stage("Mockito TEST"){
+            steps {
+                sh 'mvn test'
+            }
+        }
+        
+        
+        stage('Quality Test SonarQube') {
+            steps {
+                withCredentials([string(credentialsId: 'sonarqube', variable: 'sonarqube')]) {
+                    sh 'mvn sonar:sonar -Dsonar.login=${sonarqube}'
+                 }  
+                   
+            }
+        }
+         stage('Deployment Artifacts nexus'){
+			steps{
+				sh 'mvn deploy -DskipTests'
+			}				
+		}
+        stage('Build docker image'){
+            steps{
+                    
+                    sh 'docker build -t devopsapp:latest .'
+                
+            }
+        }
+         stage('PUSH Docker Image TO Docker HUB') {
+            steps {
+                script {
+                 withCredentials([string(credentialsId: 'docker', variable: 'docker')]) {
+                    sh 'docker login -u malakbenmansour -p ${docker}'
+                 }  
+                 sh 'docker tag devopsapp:latest malakbenmansour/devopsapp:latest'
+                 sh 'docker push malakbenmansour/devopsapp:latest'
+                }
+            }
+        }
+    
+		stage('Set UP & Build Working environment')
+		{
+		    steps{
+		        sh 'docker compose up -d'
+		    }
+		}
+	 stage('Email Jenkins Pipeline') {
+	     steps {
+	         mail bcc: '', body: 'Hello, This is an email from jenkins pipeline.', cc: '', from: '', replyTo: '', subject:'EmailJenkinsPipeline', to: 'malak.benmansour@esprit.tn'
+           }
+          }
+
+	
+    }
+    
+}
