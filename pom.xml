@@ -17,6 +17,13 @@
 		<java.version>1.8</java.version>
 		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
 	</properties>
+	<distributionManagement>
+	<repository>
+	<id>deployment</id>
+	<name>Nexus Repository</name>
+	<url>http://192.168.3.44:8081/repository/deploy/</url>
+	</repository>
+	</distributionManagement>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -53,6 +60,18 @@
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>3.0.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>3.12.4</version> <!-- Assurez-vous d'utiliser la dernière version -->
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>5.8.2</version> <!-- Use the latest version -->
+			<scope>test</scope>
+		</dependency>
 
 	</dependencies>
 
@@ -70,11 +89,7 @@
 					</excludes>
 				</configuration>
 			</plugin>
-
 		</plugins>
-		<finalName>
-			javaapp
-		</finalName>
 	</build>
 
 </project>
