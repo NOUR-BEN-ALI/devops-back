@@ -1,20 +1,40 @@
 pipeline {
     agent any
     environment {
+
+        //----------azure AKS / ACR env---------------
+
+        registryName = "myacrrepo063719"
+        registryCredential = 'acr-cred'
+        registryUrl = 'myacrrepo063719.azurecr.io'
+        dockerImage = ''
+
+        //----------jenkins local env-----------------
+
         SONARSERVER = 'sonarqube_server'
         JAVA_HOME = '/usr/lib/jvm/java-11-openjdk-amd64/'
         M2_HOME = '/opt/apache-maven-3.6.3'
-    }
+
+     }
+     /*
     stages {
         stage('Git Checkout') {
             steps {
                 script {
                     git branch: 'Moez',
-                        credentialsId: 'github-cred',
+                        credentialsId: 'git-cred',
                         url: 'https://github.com/NOUR-BEN-ALI/devops-back.git'
                 }
             }
         }
+        */
+        stage('Checkout') {
+                    steps {
+                        // Check out your source code from version control (e.g., Git).
+                        checkout scm
+                    }
+                }
+
 
         stage('Build') {
     steps {
@@ -23,38 +43,34 @@ pipeline {
     }
         }
 
-   stage('SonarQube analysis') {
 
+
+   stage('SonarQube analysis') {
 
             steps {
                withSonarQubeEnv("${SONARSERVER}") {
                     sh 'mvn clean package sonar:sonar'
                     }
-                   // jacoco runAlways: true
+
             }
         }
 
 
-        /*
 
-        stage('SonarQube analysis') {
-            steps {
-                withSonarQubeEnv("${SONARSERVER}") {
-                    sh 'mvn clean package sonar:sonar '
-                    }
-                   // jacoco runAlways: true
-            }
-        }
-        */
-
-        stage('JUnit / Mockito Test') {
+  stage('JUnit / Mockito Test') {
     steps {
         // Exécutez les tests Maven
         sh " mvn test "
     }
 }
 
-stage('upload to nexus') {
+//--------------parallel stages -----------------------------------------------
+
+stage('push to nexus / build docker image') {
+            parallel {
+
+
+                stage('upload to nexus') {
             steps {
                 script {
 
@@ -88,7 +104,14 @@ stage('Build docker image') {
 
 
 
-stage('Push image to Hub') {
+            }}
+
+
+
+
+
+                 // ----------------- Uploading Docker images into DockerHub ---------------------
+       stage('Push image to Hub') {
             steps {
                 script {
                     withCredentials([string(credentialsId: 'dockerhubpwd', variable: 'dockerhubpwd')]) {
@@ -98,6 +121,25 @@ stage('Push image to Hub') {
                 }
             }
         }
+
+
+        // ----------------- Uploading Docker images into ACR ---------------------
+
+        stage('Push Image to ACR') {
+         steps{
+             script {
+                docker.withRegistry( "http://${registryUrl}", registryCredential ) {
+               // dockerImage.push()
+               sh "docker tag moez063719/achat_backend:latest myacrrepo063719.azurecr.io/achat_backend:latest"
+               sh "docker push myacrrepo063719.azurecr.io/achat_backend:latest"
+                }
+            }
+          }
+        }
+
+
+
+
       stage('Run Docker Compose') {
             steps {
                 script {
@@ -108,4 +150,14 @@ stage('Push image to Hub') {
 
     }
 
-}
+
+        post('E-mail Alerts') {
+		always {
+			mail bcc: '', body: "<br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL de build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: '', mimeType: 'text/html', replyTo: '', subject: "${currentBuild.result} CI: Project name -> ${env.JOB_NAME}", to: "moez.felhi063719@gmail.com";
+		}
+	}
+
+
+
+
+        }
