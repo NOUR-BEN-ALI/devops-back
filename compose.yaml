@@ -39,8 +39,8 @@ services:
     #networks:
      # - back
 
-#volumes:
-  #dockerAngularSpringDatabaseData:
+volumes:
+  dockerAngularSpringDatabaseData:
 
 networks:
   back:
