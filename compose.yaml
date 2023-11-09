@@ -30,18 +30,18 @@ services:
     networks:
       - back
   # Angular Frontend
-  angular-frontend:
-    image: moez063719/achat_frontend:latest
-    ports:
-      - "8099:80"
-    depends_on:
-      - spring-backend
-    networks:
-      - back
+  #angular-frontend:
+   # image: moez063719/achat_frontend:latest
+    #ports:
+     # - "8099:80"
+    #depends_on:
+     # - spring-backend
+    #networks:
+     # - back
 
-volumes:
-  dockerAngularSpringDatabaseData:
+#volumes:
+  #dockerAngularSpringDatabaseData:
 
 networks:
   back:
-  front:
+

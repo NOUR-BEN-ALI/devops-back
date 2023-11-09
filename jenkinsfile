@@ -1,0 +1,111 @@
+pipeline {
+    agent any
+    environment {
+        SONARSERVER = 'sonarqube_server'
+        JAVA_HOME = '/usr/lib/jvm/java-11-openjdk-amd64/'
+        M2_HOME = '/opt/apache-maven-3.6.3'
+    }
+    stages {
+        stage('Git Checkout') {
+            steps {
+                script {
+                    git branch: 'Moez',
+                        credentialsId: 'github-cred',
+                        url: 'https://github.com/NOUR-BEN-ALI/devops-back.git'
+                }
+            }
+        }
+
+        stage('Build') {
+    steps {
+        sh " mvn clean package "
+
+    }
+        }
+
+   stage('SonarQube analysis') {
+
+
+            steps {
+               withSonarQubeEnv("${SONARSERVER}") {
+                    sh 'mvn clean package sonar:sonar'
+                    }
+                   // jacoco runAlways: true
+            }
+        }
+
+
+        /*
+
+        stage('SonarQube analysis') {
+            steps {
+                withSonarQubeEnv("${SONARSERVER}") {
+                    sh 'mvn clean package sonar:sonar '
+                    }
+                   // jacoco runAlways: true
+            }
+        }
+        */
+
+        stage('JUnit / Mockito Test') {
+    steps {
+        // Exécutez les tests Maven
+        sh " mvn test "
+    }
+}
+
+stage('upload to nexus') {
+            steps {
+                script {
+
+                        withCredentials([usernamePassword(credentialsId: 'nexus_cred', usernameVariable: 'NEXUS_USERNAME', passwordVariable: 'NEXUS_PASSWORD')]) {
+                            withMaven(
+                                globalMavenSettingsConfig: '',
+                                mavenSettingsConfig: '',
+                                mavenSettingsFilePath: '/opt/apache-maven-3.6.3/conf/settings.xml',
+                                publisherStrategy: 'EXPLICIT',
+                                traceability: true
+                            ) {
+
+                                sh "mvn deploy -Dusername=${NEXUS_USERNAME} -Dpassword=${NEXUS_PASSWORD}"
+                            }
+                        }
+
+                }
+            }
+        }
+
+
+stage('Build docker image') {
+    steps {
+        script {
+
+            sh " docker build -t moez063719/achat_backend:latest ."
+
+        }
+    }
+}
+
+
+
+stage('Push image to Hub') {
+            steps {
+                script {
+                    withCredentials([string(credentialsId: 'dockerhubpwd', variable: 'dockerhubpwd')]) {
+                        sh 'docker login -u moez063719 -p $dockerhubpwd'
+                        sh 'docker push moez063719/achat_backend:latest'
+                    }
+                }
+            }
+        }
+      stage('Run Docker Compose') {
+            steps {
+                script {
+                    sh 'docker compose up -d'
+                }
+            }
+        }
+
+    }
+
+}
