@@ -16,8 +16,9 @@ pipeline {
         M2_HOME = '/opt/apache-maven-3.6.3'
 
      }
-     /*
+
     stages {
+    /*
         stage('Git Checkout') {
             steps {
                 script {
