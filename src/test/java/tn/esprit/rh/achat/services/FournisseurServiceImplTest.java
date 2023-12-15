@@ -6,20 +6,13 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import static org.mockito.Mockito.times;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-//import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import tn.esprit.rh.achat.entities.DetailFournisseur;
 import tn.esprit.rh.achat.entities.Fournisseur;
-import tn.esprit.rh.achat.entities.SecteurActivite;
-import tn.esprit.rh.achat.repositories.DetailFournisseurRepository;
 import tn.esprit.rh.achat.repositories.FournisseurRepository;
-import tn.esprit.rh.achat.repositories.ProduitRepository;
-import tn.esprit.rh.achat.repositories.SecteurActiviteRepository;
 
-//@SpringBootTest
+@SpringBootTest
 public class FournisseurServiceImplTest {
 /*
     @InjectMocks
@@ -30,9 +23,7 @@ public class FournisseurServiceImplTest {
 
     @Test
     public void retrieveAllFournisseurs() {
-        // Créez une liste fictive de fournisseurs
         List<Fournisseur> fournisseursFictifs = new ArrayList<>();
-        // Remplacez cette liste fictive par des données réelles si nécessaire
 
         Mockito.when(fournisseurRepository.findAll()).thenReturn(fournisseursFictifs);
 
@@ -55,5 +46,7 @@ public class FournisseurServiceImplTest {
         Fournisseur result = fournisseurService.retrieveFournisseur(1L);
 
         assertEquals(fournisseurFictif, result);
-    }*/
+    }
+
+ */
 }
